@@ -1,0 +1,71 @@
+# FAR global planner params (Jackal ~0.43 m, cluttered static env, ~0.6 m gaps).
+# Loaded under ns "FARPlannerROS"; planning frame = move_base global_costmap frame (odom).
+
+main_run_freq             : 10.0   # v-graph update rate [Hz]; must be <= move_base planner_frequency
+voxel_dim                 : 0.05   # [m] = global costmap resolution
+robot_dim                 : 0.40   # [m] sets nav clear dist = robot_dim/2 + voxel_dim = 0.25
+vehicle_height            : 0.0    # [m] terrain cloud placed at robot z (flat floor)
+sensor_range              : 8.0    # [m]
+terrain_range             : 6.0    # [m]
+local_planner_range       : 1.0    # [m]
+visualize_ratio           : 0.3
+is_viewpoint_extend       : false
+is_multi_layer            : false
+is_opencv_visual          : false
+is_static_env             : true
+is_debug_output           : false
+is_attempt_autoswitch     : true
+world_frame               : odom   # only checked to warn if it disagrees with the planning frame
+
+# plugin-only
+plan_resolution           : 0.05   # [m] output pose spacing
+goal_update_tolerance     : 0.10   # [m] re-insert goal node only if goal moved more than this
+free_cell_stride          : 2      # subsample free costmap cells (obstacle cells never subsampled)
+obstacle_cost_threshold   : 254    # cost FAR treats as obstacle; 254=lethal only, lower adds inflated cells (narrows gaps). Sweep 253<->240 to tune the 0.56 m boundary
+path_clearance            : 0.28   # [m] push plan poses to this clearance from obstacles; 0 = off
+path_clearance_max_shift  : 0.50   # [m] max shift applied to one plan pose
+clearance_map_range       : 4.0    # [m] half-size of the costmap window the clearance distance transform runs over; 0 = whole costmap
+clearance_cost_threshold  : 254    # cost counted as obstacle for the clearance field
+max_plan_failures         : 30     # continue previous plan for this many consecutive FAR failures (10 Hz -> 3 s)
+debug_viz_rate            : 2.0    # [Hz] rviz debug output, built only while subscribed; 0 = off
+bench_log_enabled         : true   # [BENCH][FAR] per-stage timing log
+bench_log_period_s        : 1.0    # [s] one log line per period; 0 = every call
+
+# Map Handler Params
+MapHandler/floor_height          : 1.0     # [m]
+MapHandler/cell_length           : 2.0     # [m]
+MapHandler/map_grid_max_length   : 60.0    # [m]
+MapHandler/map_grad_max_height   : 4.0     # [m]
+
+# Utility Params
+Util/angle_noise                 : 15.0    # [deg]
+Util/accept_max_align_angle      : 4.0     # [deg]
+Util/nav_clear_dist              : 0.0     # [m] > 0 overrides robot_dim/2 + voxel_dim
+Util/obs_inflate_size            : 1
+Util/new_intensity_thred         : 2.0
+Util/terrain_free_Z              : 0.1     # obstacle points get intensity 1.1, free points 0.0
+Util/dyosb_update_thred          : 4
+Util/new_point_counter           : 5
+Util/dynamic_obs_dacay_time      : 10.0    # [s]
+Util/new_points_decay_time       : 1.0     # [s]
+
+# Dynamic Graph Params
+Graph/connect_votes_size         : 10
+Graph/clear_dumper_thred         : 4
+Graph/node_finalize_thred        : 6
+Graph/filter_pool_size           : 12
+
+# Contour Detector Params
+CDetector/resize_ratio           : 3.0
+CDetector/approx_dist            : 0.04    # [m] polygon approx epsilon / min vertex spacing; keeps thin gaps from merging; 0 = default
+CDetector/blur_size              : 1       # resized px; 1 = no extra dilation; 0 = default
+CDetector/filter_count_value     : 3
+CDetector/is_save_img            : false
+CDetector/img_folder_path        : /tmp/far_planner_img/
+
+# Graph Planner Params
+GPlanner/converge_distance       : 0.3     # [m] below this, return a straight segment for the local planner
+GPlanner/goal_adjust_radius      : 1.0     # [m]
+GPlanner/free_counter_thred      : 7
+GPlanner/reach_goal_vote_size    : 3
+GPlanner/path_momentum_thred     : 3

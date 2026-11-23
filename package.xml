@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>far_planner</name>
+  <version>0.1.0</version>
+  <description>
+    FAR (Fast, Attemptable Route) visibility-graph planner packaged as a move_base
+    global planner plugin (nav_core::BaseGlobalPlanner). Obstacles are taken from
+    move_base's global costmap; the plan is returned in the global costmap frame.
+  </description>
+  <maintainer email="teamrobontu@gmail.com">Nanyang Technological University Team Robo</maintainer>
+  <author>Dun Yan Ong</author>
+  <author email="fanyang2@alumni.cmu.edu">Fan Yang</author>
+  <license>Apache-2.0</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>roscpp</depend>
+  <depend>std_msgs</depend>
+  <depend>sensor_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>nav_msgs</depend>
+  <depend>visualization_msgs</depend>
+  <depend>tf</depend>
+  <depend>tf2</depend>
+  <depend>tf2_ros</depend>
+  <depend>tf2_geometry_msgs</depend>
+  <depend>pcl_ros</depend>
+  <depend>pcl_conversions</depend>
+  <depend>nav_core</depend>
+  <depend>costmap_2d</depend>
+  <depend>pluginlib</depend>
+  <depend>libpcl-all-dev</depend>
+  <depend>libopencv-dev</depend>
+  <depend>eigen</depend>
+
+  <exec_depend>move_base</exec_depend>
+
+  <export>
+    <nav_core plugin="${prefix}/far_planner_plugin.xml"/>
+  </export>
+</package>

@@ -1,0 +1,8 @@
+<library path="lib/libfar_planner_ros">
+  <class name="far_planner/FARPlannerROS" type="far_planner::FARPlannerROS" base_class_type="nav_core::BaseGlobalPlanner">
+    <description>
+      FAR visibility-graph global planner for move_base. Builds FAR's polygon/visibility graph
+      from the global costmap and returns the shortest v-graph path as a dense global plan.
+    </description>
+  </class>
+</library>
